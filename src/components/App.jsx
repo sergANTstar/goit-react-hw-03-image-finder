@@ -6,6 +6,7 @@ import imagesApi from '../services/API';
 import {Button} from './Button/Button';
 import {Modal} from './Modal/Modal';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { Loader } from './Loader/Loader';
 
 export class App extends Component {
   state = {
