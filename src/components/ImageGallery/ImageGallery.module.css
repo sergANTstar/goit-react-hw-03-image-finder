@@ -1,0 +1,26 @@
+.ImageGallery {
+    display: grid;
+    max-width: calc(100vw - 48px);
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-gap: 16px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    list-style: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .rejection {
+    background-color: rgb(241, 111, 111);
+    width: 300px;
+    height: 150px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    font-weight: 500;
+    border: 3px solid black;
+    border-radius: 16px;
+    padding-top: 55px;
+  }
