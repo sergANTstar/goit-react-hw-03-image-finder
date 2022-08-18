@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import s from './App.module.css';
-import Searchbar from './Searchbar/Searchbar';
-import ImageGallery from './Gallery/ImageGallery';
+import {SearchBar} from './SearchBar/SearchBar';
+import {ImageGallery} from './Gallery/ImageGallery';
 import imagesApi from '../services/API';
-import Button from './Button/Button';
-import Modal from './Modal/Modal';
+import {Button} from './Button/Button';
+import {Modal} from './Modal/Modal';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export class App extends Component {
   state = {
-    images: [],
+    img: [],
     searchQuery: '',
     largeImageURL: '',
     currentPage: 1,
@@ -30,7 +30,7 @@ export class App extends Component {
 
   handleFormSubmit = query => {
     this.setState({
-      images: [],
+      img: [],
       searchQuery: query,
       largeImageURL: '',
       currentPage: 1,
@@ -49,24 +49,17 @@ export class App extends Component {
 
     imagesApi(options)
       .then(({ hits, totalHits }) => {
-        if (hits.length === 0) {
-          return Notify.warning(
-            'Результат поиска зависит от качества запроса. Давайте попробуем еще раз :)'
-          );
-        }
 
-        if (totalHits === 0) {
-          return Notify.info(
-            'Пока-что это всё, что удалось найти...'
-          );
-        }
+        hits.length === 0 
+          ? Notify.warning('Sorry, nothing was found :)')
+          : Notify.info(`We found: ${totalHits} images!`);
 
         const newImages = hits.map(({ id, webformatURL, largeImageURL }) => {
           return { id, webformatURL, largeImageURL };
         });
 
         this.setState(prevState => ({
-          images: [...prevState.images, ...newImages],
+          img: [...prevState.img, ...newImages],
           total: totalHits,
         }));
       })
@@ -85,24 +78,24 @@ export class App extends Component {
   };
 
   openModal = searchId => {
-    const image = this.state.images.find(image => image.id === searchId);
+    const image = this.state.img.find(image => image.id === searchId);
     this.setState({ largeImageURL: image.largeImageURL });
     this.toggleModal();
   };
 
   render() {
-    const { images, loading, showModal, error, largeImageURL } = this.state;
+    const { img, loading, showModal, error, largeImageURL } = this.state;
     return (
       <div className={s.App}>
         {error && Notify.failure('Sorry, there is some error')}
-        <Searchbar onSubmit={this.handleFormSubmit} />
+        <SearchBar onSubmit={this.handleFormSubmit} />
         {loading && <h1>Loading</h1>}
-        {images.length > 0 && (
-          <ImageGallery images={images} openModal={this.openModal} />
+        {img.length > 0 && (
+          <ImageGallery img={img} openModal={this.openModal} />
         )}
-        {images.length > 0 &&
+        {img.length > 0 &&
           !loading &&
-          images.length !== this.state.total && (
+          img.length !== this.state.total && (
             <Button onClick={this.loadMore} />
           )}
         {showModal && (

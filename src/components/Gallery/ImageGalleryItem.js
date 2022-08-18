@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import s from './Gallery.module.css';
+import css from './Gallery.module.css';
 
-export default function ImageGalleryItem({ smallImg, id, openModal }) {
+export function ImageGalleryItem({ smallImg, id, openModal }) {
   return (
-    <li className={s.item} onClick={() => openModal(id)}>
-      <img className={s.itemImage} src={smallImg} alt="" />
+    <li className={css.gallery__item} onClick={() => openModal(id)}>
+      <img className={css.gallery__image} src={smallImg} alt="" />
     </li>
   );
 }

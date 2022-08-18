@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ImageGalleryItem from './ImageGalleryItem';
-import s from './Gallery.module.css';
+import {ImageGalleryItem} from './ImageGalleryItem';
+import css from './Gallery.module.css';
 
-export default function ImageGallery({ images, openModal }) {
+export function ImageGallery({ img, openModal }) {
   return (
-    <ul className={s.gallery}>
-      {images.map(({ id, webformatURL }) => (
+    <ul className={css.gallery}>
+      {img.map(({ id, webformatURL }) => (
         <ImageGalleryItem
           key={id}
           id={id}
@@ -20,7 +20,7 @@ export default function ImageGallery({ images, openModal }) {
 
 ImageGallery.propTypes = {
   openModal: PropTypes.func.isRequired,
-  images: PropTypes.arrayOf(
+  img: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       webformatURL: PropTypes.string.isRequired,
