@@ -12,6 +12,18 @@
 }
 
 .modal__block {
-  max-width: calc(100vw - 48px);
-  max-height: calc(100vh - 24px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  object-fit: cover;
+  background-size: cover
 }
+
+
+.modal__img {
+  height: 100vh;
+  object-fit: cover;
+  background-size: cover
+}
+
+

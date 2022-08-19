@@ -8,18 +8,19 @@ export class SearchBar extends Component {
   state = { searchQuery: '' };
 
   handleChange = e => {
-    this.setState({ searchQuery: e.currentTarget.value.toLowerCase() });
+    this.setState({ searchQuery: e.currentTarget.value });
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    const query = this.state.searchQuery.trim();
+    const query = this.state.searchQuery;
 
     if (query.trim() === '') {
       return Notify.warning('Please, enter a query!');
     }
 
     this.props.onSubmit(query);
+    this.setState({searchQuery: ""})
     
   };
 

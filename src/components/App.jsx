@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import s from './App.module.css';
+import css from './App.module.css';
 import {SearchBar} from './SearchBar/SearchBar';
 import {ImageGallery} from './Gallery/ImageGallery';
 import imagesApi from '../services/API';
@@ -29,7 +29,7 @@ export class App extends Component {
     }
   }
 
-  handleFormSubmit = query => {
+  handleSubmit = query => {
     this.setState({
       img: [],
       searchQuery: query,
@@ -37,7 +37,7 @@ export class App extends Component {
       currentPage: 1,
       total: 0,
       showModal: false,
-      loading: false,
+      loading: true,
       error: null,
     });
   };
@@ -46,14 +46,12 @@ export class App extends Component {
     const { currentPage, searchQuery } = this.state;
     const options = { currentPage, searchQuery };
 
-    this.setState({ loading: true });
+    
 
     imagesApi(options)
       .then(({ hits, totalHits }) => {
 
-        hits.length === 0 
-          ? Notify.warning('Sorry, nothing was found :)')
-          : Notify.info(`We found: ${totalHits} images!`);
+        if(hits.length === 0 ){Notify.warning('Sorry, nothing was found :)')}
 
         const newImages = hits.map(({ id, webformatURL, largeImageURL }) => {
           return { id, webformatURL, largeImageURL };
@@ -87,15 +85,15 @@ export class App extends Component {
   render() {
     const { img, loading, showModal, error, largeImageURL } = this.state;
     return (
-      <div className={s.App}>
+      <div className={css.App}>
         {error && Notify.failure('Sorry, there is some error')}
-        <SearchBar onSubmit={this.handleFormSubmit} />
-        {loading && <h1>Loading</h1>}
+        <SearchBar onSubmit={this.handleSubmit} />
         {img.length > 0 && (
           <ImageGallery img={img} openModal={this.openModal} />
         )}
+        {loading && <Loader/>}
         {img.length > 0 &&
-          !loading &&
+          !loading && 
           img.length !== this.state.total && (
             <Button onClick={this.loadMore} />
           )}
