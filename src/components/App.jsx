@@ -51,9 +51,7 @@ export class App extends Component {
     imagesApi(options)
       .then(({ hits, totalHits }) => {
 
-        hits.length === 0 
-          ? Notify.warning('Sorry, nothing was found :)')
-          : Notify.info(`We found: ${totalHits} images!`);
+     
 
         const newImages = hits.map(({ id, webformatURL, largeImageURL }) => {
           return { id, webformatURL, largeImageURL };
