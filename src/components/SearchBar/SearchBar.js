@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import css from './Searchbar.module.css';
+import css from './SearchBar.module.css';
 import { ReactComponent as SearchIcon } from './search.svg';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
